@@ -522,10 +522,10 @@
         connectedRef.on("value", function(snap) {
             if (snap.val() === true) {
                 firebaseStatus.className = "firebase-status connected";
-                firebaseStatus.innerHTML = '<div class="status-dot"></div><span>Conectado ao Firebase</span>';
+                firebaseStatus.innerHTML = '<div class="status-dot"></div><span>Conectado do servidor</span>';
             } else {
                 firebaseStatus.className = "firebase-status disconnected";
-                firebaseStatus.innerHTML = '<div class="status-dot"></div><span>Desconectado do Firebase</span>';
+                firebaseStatus.innerHTML = '<div class="status-dot"></div><span>Desconectado do servidor</span>';
             }
         });
         
