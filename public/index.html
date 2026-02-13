@@ -675,28 +675,27 @@
         // Load ranking when page loads
         document.addEventListener('DOMContentLoaded', loadRanking);
         
-        // Simulate real-time updates (for demo purposes)
-        // In a real app, this would be handled by Firebase directly
-        setInterval(() => {
-            // This simulates points changing in real-time
-            // In a real app, this would come from Firebase updates
-            const pointsCells = document.querySelectorAll('.points');
-            pointsCells.forEach(cell => {
-                // Only occasionally update to simulate real-time changes
-                if (Math.random() > 0.7) {
-                    const currentPoints = parseInt(cell.textContent.replace(/,/g, ''));
-                    const change = Math.floor(Math.random() * 50) - 10;
-                    const newPoints = Math.max(0, currentPoints + change);
-                    cell.textContent = newPoints.toLocaleString();
-                    
-                    // Update the top score if needed
-                    const currentTopScore = parseInt(topScoreEl.textContent.replace(/,/g, ''));
-                    if (newPoints > currentTopScore) {
-                        topScoreEl.textContent = newPoints.toLocaleString();
-                    }
-                }
-            });
-        }, 5000);
+  // Simulação visual sem afetar o recorde real
+setInterval(() => {
+    const pointsCells = document.querySelectorAll('.points');
+    let highestVisualScore = 0;
+
+    pointsCells.forEach(cell => {
+        if (Math.random() > 0.7) {
+            const currentPoints = parseInt(cell.textContent.replace(/,/g, ''));
+            const change = Math.floor(Math.random() * 50) - 10;
+            const newPoints = Math.max(0, currentPoints + change);
+            cell.textContent = newPoints.toLocaleString();
+        }
+
+        const visualPoints = parseInt(cell.textContent.replace(/,/g, ''));
+        if (visualPoints > highestVisualScore) {
+            highestVisualScore = visualPoints;
+        }
+    });
+
+    // NÃO atualiza o recorde aqui
+}, 5000);
     </script>
 </body>
 </html> 
