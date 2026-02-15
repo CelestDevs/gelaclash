@@ -15,10 +15,10 @@
 --accent-blue:#2a5ac8;
 --light-blue:#4a8aff;
 --gold:#ffd700;
---light-gold:#ffed4e;
+--silver:#c0c0c0;
+--bronze:#cd7f32;
 --white:#ffffff;
 --dark:#050a1a;
---success:#2ecc71;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -36,7 +36,7 @@ header{text-align:center;padding:40px 0 20px;}
 
 .logo{
 font-family:'Orbitron',sans-serif;
-font-size:2.5rem;
+font-size:2.6rem;
 font-weight:800;
 background:linear-gradient(to right,var(--light-blue),var(--gold));
 -webkit-background-clip:text;
@@ -49,13 +49,13 @@ margin-top:5px;
 font-weight:600;
 }
 
-/* BOTÃO RANKING */
+/* BOTÕES */
 
 .ranking-btn{
 display:inline-block;
-margin:25px 0;
+margin:15px 10px;
 padding:14px 28px;
-background:linear-gradient(to right,var(--gold),var(--light-gold));
+background:linear-gradient(to right,var(--gold),#ffed4e);
 color:var(--dark);
 font-weight:700;
 border-radius:40px;
@@ -65,8 +65,8 @@ box-shadow:0 0 15px rgba(255,215,0,0.6);
 }
 
 .ranking-btn:hover{
-transform:scale(1.05);
-box-shadow:0 0 25px rgba(255,215,0,0.9);
+transform:scale(1.08);
+box-shadow:0 0 30px rgba(255,215,0,1);
 }
 
 /* STATUS BAR */
@@ -104,13 +104,13 @@ margin-top:5px;
 background:rgba(10,26,58,0.75);
 border-radius:18px;
 padding:30px;
-margin:30px 0;
+margin:40px 0;
 }
 
 .section-title{
 font-size:1.7rem;
 margin-bottom:20px;
-color:var(--light-gold);
+color:#ffed4e;
 }
 
 .rules-list{
@@ -127,34 +127,94 @@ color:var(--gold);
 font-weight:700;
 }
 
-.card-grid{
-display:grid;
+/* PÓDIO */
+
+.podium{
+display:flex;
+justify-content:center;
+align-items:flex-end;
 gap:20px;
+margin-top:30px;
+flex-wrap:nowrap;
 }
 
-.rule-card{
+.podium-card{
+width:200px;
+text-align:center;
+padding:20px;
+border-radius:20px 20px 0 0;
+font-weight:700;
+transition:0.3s;
+}
+
+.podium-card:hover{
+transform:translateY(-8px);
+}
+
+.first{
+height:260px;
+background:linear-gradient(180deg,#ffd700,#ffb700);
+color:#000;
+box-shadow:0 0 25px rgba(255,215,0,0.8);
+}
+
+.second{
+height:220px;
+background:linear-gradient(180deg,#c0c0c0,#e6e6e6);
+color:#000;
+}
+
+.third{
+height:190px;
+background:linear-gradient(180deg,#cd7f32,#e6a15c);
+}
+
+.other-prizes{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:30px;
+}
+
+.prize-box{
 background:linear-gradient(135deg,#1a3a7a,#2a5ac8);
 padding:20px;
 border-radius:15px;
-box-shadow:0 0 12px rgba(0,0,0,0.5);
+text-align:center;
+box-shadow:0 0 15px rgba(0,0,0,0.5);
 }
 
-.rule-card h3{
-color:var(--gold);
-margin-bottom:10px;
+/* MOBILE AJUSTADO */
+
+@media (max-width:768px){
+
+.logo{font-size:1.6rem;}
+.section{padding:20px;}
+.status-bar{flex-direction:column;gap:15px;}
+
+.podium{
+flex-direction:row;
+align-items:flex-end;
+gap:10px;
+}
+
+.podium-card{
+width:110px;
+padding:15px;
+font-size:0.85rem;
+}
+
+.first{height:190px;}
+.second{height:160px;}
+.third{height:140px;}
+
 }
 
 .footer-info{
 text-align:center;
-margin:30px 0 40px 0;
+margin:40px 0;
 font-size:0.9rem;
-color:var(--light-blue);
-}
-
-@media (max-width:768px){
-.logo{font-size:1.6rem;}
-.section{padding:20px;}
-.status-bar{flex-direction:column;gap:15px;}
+color:#4a8aff;
 }
 </style>
 </head>
@@ -167,12 +227,12 @@ color:var(--light-blue);
 <p class="subtitle">Garanta sua vaga para o Campeonato Principal</p>
 
 <a href="ranking.html" class="ranking-btn">
-    <i class="fas fa-trophy"></i> VER RANKING ATUAL 
+<i class="fas fa-trophy"></i> VER RANKING ATUAL
 </a>
 
 <a href="https://forms.gle/tzvDQvGiMKgE4zWL6" class="ranking-btn">
-        <i class="fas fa-trophy"></i> INSCREVA-SE AGORA
- </a>
+<i class="fas fa-pen"></i> INSCREVA-SE AGORA
+</a>
 
 <div class="status-bar">
 <div class="status-item">
@@ -191,71 +251,73 @@ color:var(--light-blue);
 </header>
 
 <section class="section">
-<h2 class="section-title"><i class="fas fa-trophy"></i> COMO FUNCIONA O PRÉ-CAMPEONATO</h2>
-
+<h2 class="section-title"><i class="fas fa-info-circle"></i> COMO FUNCIONA O PRÉ-CAMPEONATO</h2>
 <ul class="rules-list">
 <li>O torneio acontece <span class="highlight">todo domingo</span> na sorveteria <span class="highlight">Point do Açaí</span>.</li>
-<li>Os jogadores competem para acumular <span class="highlight">pontos no site</span>.</li>
+<li>Os jogadores acumulam <span class="highlight">pontos no site</span>.</li>
 <li>Os vencedores sobem no ranking semanal.</li>
-<li>Os <span class="highlight">10 melhores colocados</span> ao final garantem vaga no Campeonato Principal.</li>
-<li>As demais vagas serão conquistadas no aplicativo oficial.</li>
+<li>Os <span class="highlight">10 melhores colocados</span> garantem vaga no Campeonato Principal.</li>
+<li>As demais vagas serão conquistadas obtendo pontos no aplicativo oficial.</li>
 </ul>
 </section>
 
 <section class="section">
 <h2 class="section-title"><i class="fas fa-bolt"></i> REGRAS DO PRÉ-CAMPEONATO</h2>
-
 <ul class="rules-list">
 <li>Cada confronto será decidido em <span class="highlight">1 única partida</span>.</li>
-<li>Cada jogador poderá utilizar <span class="highlight">somente 1 deck</span>.</li>
-<li>O vencedor recebe a pontuação máxima da rodada.</li>
-<li>Ranking atualizado ao final de cada domingo.</li>
+<li>Cada jogador poderá usar <span class="highlight">apenas 1 deck</span>.</li>
+<li>O vencedor recebe pontuação máxima da rodada.</li>
+<li>Ranking atualizado todo domingo.</li>
 </ul>
 </section>
 
 <section class="section">
-<h2 class="section-title"><i class="fas fa-gift"></i> PREMIAÇÃO DO CAMPEONATO PRINCIPAL</h2>
+<h2 class="section-title"><i class="fas fa-crown"></i> PREMIAÇÃO DO CAMPEONATO PRINCIPAL</h2>
 
-<ul class="rules-list">
-<li><span class="highlight">🥇 1º Lugar:</span> 2 Pass Royale OU valor equivalente em dinheiro.</li>
-<li><span class="highlight">🥈 2º Lugar:</span> 1 Pass Royale OU valor equivalente em dinheiro.</li>
-<li><span class="highlight">🥉 3º Lugar:</span> 1 Açaí Completo.</li>
-</ul>
+<div class="podium">
+<div class="podium-card second">
+<h3>🥈 2º Lugar</h3>
+<p>2 Pass Royale<br>ou valor em dinheiro</p>
+</div>
+
+<div class="podium-card first">
+<h3>🥇 1º Lugar</h3>
+<p>3 Pass Royale<br>ou valor equivalente em dinheiro</p>
+</div>
+
+<div class="podium-card third">
+<h3>🥉 3º Lugar</h3>
+<p>1 Pass Royale</p>
+</div>
+</div>
+
+<div class="other-prizes">
+<div class="prize-box">
+<h3>🏅 4º Lugar</h3>
+<p>1 Açaí Completo</p>
+</div>
+
+<div class="prize-box">
+<h3>🎖 5º Lugar</h3>
+<p>Lembrança Oficial do Campeonato</p>
+</div>
+</div>
+
 </section>
 
 <section class="section">
-<h2 class="section-title"><i class="fas fa-crown"></i> REGRAS DO CAMPEONATO PRINCIPAL</h2>
+<h2 class="section-title"><i class="fas fa-gavel"></i> REGRAS DO CAMPEONATO PRINCIPAL</h2>
 
-<div class="card-grid">
-
-<div class="rule-card">
-<h3>📜 Formato Oficial</h3>
-<p>O campeonato seguirá as regras oficiais do jogo.</p>
-</div>
-
-<div class="rule-card">
-<h3>🃏 Sistema de Decks</h3>
 <ul class="rules-list">
-<li>3 decks obrigatórios.</li>
-<li>Não é permitido repetir cartas entre os decks.</li>
-</ul>
-</div>
-
-<div class="rule-card">
-<h3>⚔ Sistema de Confronto</h3>
-<ul class="rules-list">
-<li>Melhor de 3 partidas.</li>
+<li>Seguirá as <span class="highlight">regras oficiais do jogo</span>.</li>
+<li>Cada jogador deverá montar <span class="highlight">3 decks diferentes</span>.</li>
+<li>Não é permitido repetir nenhuma carta entre os decks.</li>
+<li>Os confrontos serão em <span class="highlight">melhor de 3 partidas</span>.</li>
 <li>Vence quem ganhar 2 partidas.</li>
-<li>Chaveamento oficial define os confrontos.</li>
+<li>Os confrontos serão definidos por <span class="highlight">chaveamento oficial</span>.</li>
+<li>A organização terá decisão final sobre casos não previstos.</li>
 </ul>
-</div>
 
-<div class="rule-card">
-<h3>🏛 Decisões</h3>
-<p>A organização terá decisão final em casos não previstos.</p>
-</div>
-
-</div>
 </section>
 
 <div class="footer-info">
