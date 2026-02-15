@@ -3,13 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ranking Semanal - GelaClashRoyale</title>
+<title>Pré-Campeonato Oficial</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
 <style>
 :root{
@@ -22,7 +19,6 @@
 --white:#ffffff;
 --dark:#050a1a;
 --success:#2ecc71;
---danger:#e74c3c;
 }
 
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -32,16 +28,15 @@ font-family:'Montserrat',sans-serif;
 background:linear-gradient(135deg,var(--primary-blue),var(--dark));
 color:var(--white);
 min-height:100vh;
-overflow-x:hidden;
 }
 
 .container{max-width:1200px;margin:auto;padding:0 20px;}
 
-header{text-align:center;padding:30px 0 15px;}
+header{text-align:center;padding:40px 0 20px;}
 
 .logo{
 font-family:'Orbitron',sans-serif;
-font-size:2.6rem;
+font-size:2.5rem;
 font-weight:800;
 background:linear-gradient(to right,var(--light-blue),var(--gold));
 -webkit-background-clip:text;
@@ -54,6 +49,26 @@ margin-top:5px;
 font-weight:600;
 }
 
+/* BOTÃO RANKING */
+
+.ranking-btn{
+display:inline-block;
+margin:25px 0;
+padding:14px 28px;
+background:linear-gradient(to right,var(--gold),var(--light-gold));
+color:var(--dark);
+font-weight:700;
+border-radius:40px;
+text-decoration:none;
+transition:0.3s;
+box-shadow:0 0 15px rgba(255,215,0,0.6);
+}
+
+.ranking-btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px rgba(255,215,0,0.9);
+}
+
 /* STATUS BAR */
 
 .status-bar{
@@ -62,8 +77,8 @@ justify-content:space-between;
 background:rgba(10,26,58,0.85);
 border-radius:14px;
 padding:18px;
-max-width:850px;
-margin:20px auto;
+max-width:900px;
+margin:25px auto;
 border:2px solid var(--gold);
 box-shadow:0 0 15px rgba(255,215,0,0.4);
 flex-wrap:wrap;
@@ -72,7 +87,7 @@ flex-wrap:wrap;
 .status-item{text-align:center;flex:1;}
 
 .status-value{
-font-size:1.8rem;
+font-size:1.6rem;
 font-family:'Orbitron';
 color:var(--gold);
 }
@@ -83,205 +98,63 @@ color:var(--light-blue);
 margin-top:5px;
 }
 
-/* SERVER STATUS */
+/* SECTION */
 
-.server-status{
-margin-top:10px;
-font-size:0.9rem;
-}
-
-.server-online{color:var(--success);}
-.server-offline{color:var(--danger);}
-
-/* PODIUM */
-
-.podium{
-display:flex;
-justify-content:center;
-align-items:flex-end;
-gap:15px;
-margin:35px 0;
-flex-wrap:wrap;
-}
-
-.podium-item{
-border-radius:12px 12px 0 0;
-padding:15px;
-text-align:center;
-min-width:110px;
-max-width:140px;
-}
-
-.podium-1{
-height:160px;
-background:linear-gradient(to bottom,rgba(255,215,0,0.9),rgba(255,215,0,0.2));
-}
-
-.podium-2{
-height:120px;
-background:linear-gradient(to bottom,rgba(192,192,192,0.9),rgba(192,192,192,0.2));
-}
-
-.podium-3{
-height:100px;
-background:linear-gradient(to bottom,rgba(205,127,50,0.9),rgba(205,127,50,0.2));
-}
-
-.podium-player{
-font-weight:700;
-font-size:1.1rem;
-margin-top:10px;
-word-break:break-word;
-white-space:normal;
-line-height:1.1;
-max-width:120px;
-margin-left:auto;
-margin-right:auto;
-}
-
-.podium-points{
-font-family:'Orbitron';
-font-weight:700;
-margin-top:6px;
-color:var(--white);
-}
-
-/* RANKING */
-
-.ranking-section{
+.section{
 background:rgba(10,26,58,0.75);
 border-radius:18px;
-padding:25px;
-margin-bottom:20px;
+padding:30px;
+margin:30px 0;
 }
 
 .section-title{
-font-size:1.6rem;
+font-size:1.7rem;
 margin-bottom:20px;
 color:var(--light-gold);
 }
 
-.ranking-table{
-width:100%;
-overflow-x:auto;
+.rules-list{
+line-height:1.8;
+padding-left:20px;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
+.rules-list li{
+margin-bottom:12px;
 }
 
-thead{
-background:rgba(26,58,122,0.85);
-}
-
-th,td{
-padding:14px;
-text-align:left;
-}
-
-th{
-color:var(--light-gold);
-border-bottom:2px solid var(--gold);
-}
-
-.points{
-font-family:'Orbitron';
+.highlight{
+color:var(--gold);
 font-weight:700;
-color:var(--light-gold);
 }
 
-.player-info{
-display:flex;
-align-items:center;
+.card-grid{
+display:grid;
+gap:20px;
 }
 
-.player-avatar{
-width:40px;
-height:40px;
-border-radius:50%;
-background:linear-gradient(135deg,var(--accent-blue),var(--light-blue));
-display:flex;
-align-items:center;
-justify-content:center;
-margin-right:10px;
-font-weight:700;
-border:2px solid var(--gold);
+.rule-card{
+background:linear-gradient(135deg,#1a3a7a,#2a5ac8);
+padding:20px;
+border-radius:15px;
+box-shadow:0 0 12px rgba(0,0,0,0.5);
 }
 
-/* EFEITO DOURADO 1º */
-
-@keyframes glow{
-0%{box-shadow:0 0 5px var(--gold);}
-50%{box-shadow:0 0 25px var(--gold);}
-100%{box-shadow:0 0 5px var(--gold);}
+.rule-card h3{
+color:var(--gold);
+margin-bottom:10px;
 }
-
-.pos-1{
-animation:glow 3s infinite;
-background:linear-gradient(to right,
-rgba(255,215,0,0.08),
-rgba(255,215,0,0.2),
-rgba(255,215,0,0.08));
-border-radius:10px;
-}
-
-/* FOOTER */
 
 .footer-info{
 text-align:center;
-margin:15px 0 40px 0;
-font-size:0.85rem;
+margin:30px 0 40px 0;
+font-size:0.9rem;
 color:var(--light-blue);
 }
-
-/* MOBILE */
 
 @media (max-width:768px){
-
-.logo{font-size:1.7rem;}
-.subtitle{font-size:0.9rem;}
-
-.status-bar{
-flex-direction:column;
-gap:12px;
-}
-
-.status-value{font-size:1.5rem;}
-
-.ranking-section{padding:15px;}
-
-th,td{
-padding:10px 6px;
-font-size:0.85rem;
-}
-
-.player-avatar{
-width:32px;
-height:32px;
-font-size:0.8rem;
-}
-
-.podium-item{
-min-width:90px;
-max-width:110px;
-}
-
-.podium-player{
-font-size:0.85rem;
-max-width:90px;
-}
-
-.podium-points{
-font-size:0.8rem;
-}
-
-}
-
-.loading{
-text-align:center;
-padding:30px;
-color:var(--light-blue);
+.logo{font-size:1.6rem;}
+.section{padding:20px;}
+.status-bar{flex-direction:column;gap:15px;}
 }
 </style>
 </head>
@@ -290,142 +163,101 @@ color:var(--light-blue);
 <div class="container">
 
 <header>
-<h1 class="logo">GELACLASH ROYALE</h1>
-<p class="subtitle">RANKING SEMANAL - TOP JOGADORES</p>
+<h1 class="logo">PRÉ-CAMPEONATO OFICIAL</h1>
+<p class="subtitle">Garanta sua vaga para o Campeonato Principal</p>
+
+<a href="ranking.html" class="ranking-btn">
+<i class="fas fa-trophy"></i> VER RANKING ATUAL
+</a>
 
 <div class="status-bar">
 <div class="status-item">
-<div id="total-players" class="status-value">0</div>
-<div class="status-label">Quantidade de Jogadores</div>
+<div class="status-value">10</div>
+<div class="status-label">Vagas Diretas</div>
 </div>
 <div class="status-item">
-<div id="top-score" class="status-value">0</div>
-<div class="status-label">Recorde</div>
+<div class="status-value">Todo Domingo</div>
+<div class="status-label">Dia do Evento</div>
 </div>
 <div class="status-item">
-<div id="avg-points" class="status-value">0</div>
-<div class="status-label">Média de Pontos</div>
+<div class="status-value">Point do Açaí</div>
+<div class="status-label">Local Oficial</div>
 </div>
-</div>
-
-<div class="server-status" id="server-status">
-<span class="server-offline"><i class="fas fa-circle"></i> Conectando ao servidor...</span>
 </div>
 </header>
 
-<div class="podium" id="podium-container"></div>
+<section class="section">
+<h2 class="section-title"><i class="fas fa-trophy"></i> COMO FUNCIONA O PRÉ-CAMPEONATO</h2>
 
-<section class="ranking-section">
-<h2 class="section-title"><i class="fas fa-trophy"></i> CLASSIFICAÇÃO COMPLETA</h2>
+<ul class="rules-list">
+<li>O torneio acontece <span class="highlight">todo domingo</span> na sorveteria <span class="highlight">Point do Açaí</span>.</li>
+<li>Os jogadores competem para acumular <span class="highlight">pontos no site</span>.</li>
+<li>Os vencedores sobem no ranking semanal.</li>
+<li>Os <span class="highlight">10 melhores colocados</span> ao final garantem vaga no Campeonato Principal.</li>
+<li>As demais vagas serão conquistadas via pontuação no aplicativo oficial.</li>
+</ul>
+</section>
 
-<div class="loading" id="loading">
-<i class="fas fa-spinner fa-spin"></i><br>Carregando ranking...
+<section class="section">
+<h2 class="section-title"><i class="fas fa-bolt"></i> REGRAS DO PRÉ-CAMPEONATO</h2>
+
+<ul class="rules-list">
+<li>Cada confronto será decidido em <span class="highlight">1 única partida</span>.</li>
+<li>Cada jogador poderá utilizar <span class="highlight">somente 1 deck</span>.</li>
+<li>O vencedor recebe a pontuação máxima da rodada.</li>
+<li>Ranking atualizado ao final de cada domingo.</li>
+</ul>
+</section>
+
+<section class="section">
+<h2 class="section-title"><i class="fas fa-gift"></i> PREMIAÇÃO DO CAMPEONATO PRINCIPAL</h2>
+
+<ul class="rules-list">
+<li><span class="highlight">🥇 1º Lugar:</span> 2 Pass Royale OU valor equivalente em dinheiro.</li>
+<li><span class="highlight">🥈 2º Lugar:</span> 1 Pass Royale OU valor equivalente em dinheiro.</li>
+<li><span class="highlight">🥉 3º Lugar:</span> 1 Açaí Completo.</li>
+</ul>
+</section>
+
+<section class="section">
+<h2 class="section-title"><i class="fas fa-crown"></i> REGRAS DO CAMPEONATO PRINCIPAL</h2>
+
+<div class="card-grid">
+
+<div class="rule-card">
+<h3>📜 Formato Oficial</h3>
+<p>O campeonato seguirá as regras oficiais do jogo.</p>
 </div>
 
-<div class="ranking-table">
-<table id="ranking-table" style="display:none;">
-<thead>
-<tr>
-<th>POSIÇÃO</th>
-<th>JOGADOR</th>
-<th>PONTOS</th>
-<th>VARIAÇÃO</th>
-</tr>
-</thead>
-<tbody id="ranking-body"></tbody>
-</table>
+<div class="rule-card">
+<h3>🃏 Sistema de Decks</h3>
+<ul class="rules-list">
+<li>3 decks obrigatórios.</li>
+<li>Não é permitido repetir cartas entre os decks.</li>
+</ul>
+</div>
+
+<div class="rule-card">
+<h3>⚔ Sistema de Confronto</h3>
+<ul class="rules-list">
+<li>Melhor de 3 partidas.</li>
+<li>Vence quem ganhar 2 partidas.</li>
+<li>Chaveamento oficial define os confrontos.</li>
+</ul>
+</div>
+
+<div class="rule-card">
+<h3>🏛 Decisões</h3>
+<p>A organização terá decisão final em casos não previstos.</p>
+</div>
+
 </div>
 </section>
 
 <div class="footer-info">
-Ranking atualizado todos domingos às 18hrs | localPoints© 2026
+Pré-Campeonato Oficial © 2026 | Ranking atualizado todos os domingos
 </div>
 
 </div>
-
-<script>
-const firebaseConfig = {
-            apiKey: "AIzaSyDHmDR9oQRnLubWSAX-92M-sz70b9AHagE",
-            authDomain: "localpoints-gelaclash.firebaseapp.com",
-            databaseURL: "https://localpoints-gelaclash-default-rtdb.firebaseio.com",
-            projectId: "localpoints-gelaclash",
-            storageBucket: "localpoints-gelaclash.firebasestorage.app",
-            messagingSenderId: "677400270919",
-            appId: "1:677400270919:web:c1147c08523f1c65b57962",
-            measurementId: "G-C3C2P5FJBV"
-        };
-
-firebase.initializeApp(firebaseConfig);
-const database=firebase.database();
-
-/* STATUS REAL DE CONEXÃO */
-
-const serverStatus=document.getElementById("server-status");
-firebase.database().ref(".info/connected").on("value",snap=>{
-if(snap.val()===true){
-serverStatus.innerHTML='<span class="server-online"><i class="fas fa-circle"></i> Conectado ao servidor</span>';
-}else{
-serverStatus.innerHTML='<span class="server-offline"><i class="fas fa-circle"></i> Desconectado do servidor</span>';
-}
-});
-
-/* CARREGAR RANKING */
-
-function loadRanking(){
-database.ref('users').on('value',snapshot=>{
-const users=snapshot.val();
-if(!users) return;
-
-const arr=Object.keys(users).map(username=>({
-username,
-points:users[username].points||0
-}));
-
-arr.sort((a,b)=>b.points-a.points);
-
-document.getElementById("total-players").textContent=arr.length;
-document.getElementById("top-score").textContent=arr[0]?arr[0].points.toLocaleString():0;
-document.getElementById("avg-points").textContent=
-arr.length?Math.round(arr.reduce((s,u)=>s+u.points,0)/arr.length).toLocaleString():0;
-
-const podium=document.getElementById("podium-container");
-podium.innerHTML="";
-[2,1,3].forEach(pos=>{
-const user=arr[pos-1];
-if(!user) return;
-podium.innerHTML+=`
-<div class="podium-item podium-${pos}">
-<div style="font-size:2rem;">${pos==1?"🥇":pos==2?"🥈":"🥉"}</div>
-<div class="podium-player">${user.username}</div>
-<div class="podium-points">${user.points.toLocaleString()} pts</div>
-</div>`;
-});
-
-const body=document.getElementById("ranking-body");
-body.innerHTML="";
-arr.forEach((user,i)=>{
-body.innerHTML+=`
-<tr class="${i==0?'pos-1':''}">
-<td>${i+1}</td>
-<td>
-<div class="player-info">
-<div class="player-avatar">${user.username.charAt(0).toUpperCase()}</div>
-${user.username}${i==0?' 👑':''}
-</div>
-</td>
-<td class="points">${user.points.toLocaleString()}</td>
-<td>=</td>
-</tr>`;
-});
-
-document.getElementById("loading").style.display="none";
-document.getElementById("ranking-table").style.display="table";
-
-});
-}
-
-document.addEventListener("DOMContentLoaded",loadRanking);
-</script>
-
 </body>
 </html>
